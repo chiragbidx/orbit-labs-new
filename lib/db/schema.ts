@@ -1,6 +1,6 @@
 import "server-only";
 
-import { pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uniqueIndex, integer } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -112,4 +112,75 @@ export const featureItems = pgTable("feature_items", {
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
+});
+
+// CRM Core Entities
+
+export const companies = pgTable("companies", {
+  id: text("id").notNull().default(sql`gen_random_uuid()`).primaryKey(),
+  teamId: text("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  website: text("website"),
+  industry: text("industry"),
+  ownerId: text("owner_id").references(() => users.id),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const contacts = pgTable("contacts", {
+  id: text("id").notNull().default(sql`gen_random_uuid()`).primaryKey(),
+  teamId: text("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
+  companyId: text("company_id").references(() => companies.id, { onDelete: "set null" }),
+  ownerId: text("owner_id").references(() => users.id),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name"),
+  email: text("email"),
+  phone: text("phone"),
+  status: text("status").notNull().default("active"),
+  jobTitle: text("job_title"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const deals = pgTable("deals", {
+  id: text("id").notNull().default(sql`gen_random_uuid()`).primaryKey(),
+  teamId: text("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
+  contactId: text("contact_id").references(() => contacts.id, { onDelete: "set null" }),
+  companyId: text("company_id").references(() => companies.id, { onDelete: "set null" }),
+  ownerId: text("owner_id").references(() => users.id),
+  name: text("name").notNull(),
+  amount: integer("amount"),
+  stage: text("stage").notNull().default("lead"),
+  status: text("status").notNull().default("open"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const notes = pgTable("notes", {
+  id: text("id").notNull().default(sql`gen_random_uuid()`).primaryKey(),
+  teamId: text("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
+  contactId: text("contact_id").references(() => contacts.id, { onDelete: "set null" }),
+  companyId: text("company_id").references(() => companies.id, { onDelete: "set null" }),
+  dealId: text("deal_id").references(() => deals.id, { onDelete: "set null" }),
+  authorId: text("author_id").references(() => users.id),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const tasks = pgTable("tasks", {
+  id: text("id").notNull().default(sql`gen_random_uuid()`).primaryKey(),
+  teamId: text("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
+  contactId: text("contact_id").references(() => contacts.id, { onDelete: "set null" }),
+  companyId: text("company_id").references(() => companies.id, { onDelete: "set null" }),
+  dealId: text("deal_id").references(() => deals.id, { onDelete: "set null" }),
+  assigneeId: text("assignee_id").references(() => users.id),
+  title: text("title").notNull(),
+  status: text("status").notNull().default("pending"),
+  dueDate: timestamp("due_date", { withTimezone: true }),
+  notes: text("notes"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
