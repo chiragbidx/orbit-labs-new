@@ -96,7 +96,7 @@ export default function Client({
             </div>
             <p className="mt-4 text-sm font-medium">No team found</p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Sign up for a new account to automatically create your team.
+              Create a CoreCRM account to start your team.
             </p>
           </CardContent>
         </Card>
@@ -111,10 +111,9 @@ export default function Client({
     <>
       <InviteLogger url={inviteUrl} />
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">Team</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Team Management</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Manage members, roles, and invitations for{" "}
-          <span className="font-medium text-foreground">{team?.name}</span>.
+          Add, manage, and invite members to your CoreCRM workspace: <span className="font-medium text-foreground">{team?.name}</span>.
         </p>
       </div>
 
@@ -341,10 +340,10 @@ export default function Client({
             <CardHeader>
               <div className="flex items-center gap-2">
                 <UserPlus className="size-4 text-muted-foreground" />
-                <CardTitle className="text-base">Invite Member</CardTitle>
+                <CardTitle className="text-base">Invite Teammate</CardTitle>
               </div>
               <CardDescription>
-                Send an email invitation to add a new team member.
+                Send an email invitation to add a new CoreCRM member.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -371,7 +370,7 @@ export default function Client({
                     <option value="admin">Admin</option>
                   </select>
                   <p className="text-xs text-muted-foreground">
-                    Admins can invite and manage members. Members have
+                    Admins can invite and manage teammates. Members have
                     standard access.
                   </p>
                 </div>
