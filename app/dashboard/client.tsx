@@ -15,6 +15,8 @@ export default function Client({ greeting, firstName }: ClientProps) {
     <DashboardContent
       greeting={greeting}
       firstName={firstName}
+      brandName="CoreCRM"
+      brandDescription="Internal CRM for high-performance teams: manage contacts, clients, and daily ops—all in one clean dashboard."
     />
   );
 }
