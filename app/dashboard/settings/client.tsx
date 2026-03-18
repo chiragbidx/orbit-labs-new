@@ -60,7 +60,7 @@ export default function Client({ user, status, message }: ClientProps) {
       <div className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Manage your account profile, email, and security.
+          Personalize your CoreCRM account profile, email, and password.
         </p>
       </div>
 
@@ -119,7 +119,7 @@ export default function Client({ user, status, message }: ClientProps) {
               <CardTitle className="text-base">Profile</CardTitle>
             </div>
             <CardDescription>
-              Update your personal details. This is how others will see you.
+              Update your user information—visible to other CoreCRM teammates.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -173,7 +173,7 @@ export default function Client({ user, status, message }: ClientProps) {
               <CardTitle className="text-base">Email Address</CardTitle>
             </div>
             <CardDescription>
-              Change the email address associated with your account.
+              Change the email address for your CoreCRM account.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -217,7 +217,7 @@ export default function Client({ user, status, message }: ClientProps) {
               <CardTitle className="text-base">Password</CardTitle>
             </div>
             <CardDescription>
-              Update your password to keep your account secure.
+              Change your CoreCRM login password.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -274,8 +274,8 @@ export default function Client({ user, status, message }: ClientProps) {
               </CardTitle>
             </div>
             <CardDescription>
-              Permanently delete your account and all associated data. This
-              action is irreversible.
+              Permanently delete your CoreCRM account and all associated data. This
+              action cannot be undone.
             </CardDescription>
           </CardHeader>
           <CardContent>
